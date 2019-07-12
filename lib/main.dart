@@ -81,6 +81,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                         // to calculate
                         String newResult =
                             result.replaceAll('x', '*').replaceAll('÷', '/');
+                            if(newResult.endsWith('+') || newResult.endsWith('-') || newResult.endsWith('*') || newResult.endsWith('/')){
+                              newResult = newResult.substring(0,newResult.length-1);
+                            }
                         Expression _expression = Expression.parse(newResult);
                         final evaluate = const ExpressionEvaluator();
                         var context = {'x': null};
