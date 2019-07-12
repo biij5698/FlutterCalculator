@@ -26,7 +26,12 @@ List<String> buttons = [
   'del',
   '='
 ];
-String result;
+RegExp regNumber = new RegExp(r'[0-9.]'); //regular expression of number
+RegExp regOperator =
+    new RegExp(r'[\+\-\x\÷\%\+\/\-]'); //regular express of operator
+double leftValue; //left value
+double rightValue; //right value
+String result; //the result
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -79,9 +84,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 fontWeight: FontWeight.w100),
                           ),
                     onPressed: () {
-                      setState(() {
-                        result = buttons[index];
+                      // print(regNumber.hasMatch(buttons[index]));
+                      print(buttons[index]);
+                      // print(regOperator.hasMatch(buttons[index]));
+                      regOperator.allMatches(buttons[index]).forEach((v){
+                        print(":"+v[0]);
                       });
+                      print(regOperator.stringMatch(buttons[index]) ==
+                          buttons[index]);
                     },
                     color: Color(0xff706A63),
                     splashColor: Colors.transparent,
