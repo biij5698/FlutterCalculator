@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:expressions/expressions.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 main() {
   runApp(HomeWidget());
@@ -84,12 +84,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                             if(newResult.endsWith('+') || newResult.endsWith('-') || newResult.endsWith('*') || newResult.endsWith('/')){
                               newResult = newResult.substring(0,newResult.length-1);
                             }
-                        Expression _expression = Expression.parse(newResult);
-                        final evaluate = const ExpressionEvaluator();
-                        var context = {'x': null};
+                        Parser p = new Parser();
+                        Expression exp = p.parse(newResult);
+                        ContextModel cm = new ContextModel();
+                        double _result = exp.evaluate(EvaluationType.REAL,cm);
                         setState(() {
-                          result = evaluate.eval(_expression, context).toString();
+                          result = _result.round().toString();
                         });
+
                       } else {
                         setState(() {
                           result += buttons[index];
